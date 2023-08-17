@@ -5,57 +5,75 @@
  */
 
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
 
 / {
-        keymap {
-                compatible = "zmk,keymap";
+    keymap {
+        compatible = "zmk,keymap";
 
-                default_layer {
+        default_layer {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
+            // | SHFT |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+            // | CTRL |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
+            //                    | ALT | LWR | SPC |   | ENT | RSE  | GUI |
 
-// -----------------------------------------------------------------------------------------
-// |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
-// | SHFT |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
-// | CTRL |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ESC  |
-//                    | ALT | LWR | SPC |   | ENT | RSE  | GUI |
-                        label = "Base";
-                        bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U  &kp I     &kp O   &kp P    &kp BSPC
-   &kp LSHFT &kp A &kp S &kp D &kp F &kp G   &kp H &kp J  &kp K     &kp L   &kp SEMI &kp SQT
-   &kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M  &kp COMMA &kp DOT &kp FSLH &kp ESC
-                  &kp LALT &mo 1 &kp SPACE   &kp RET &mo 2 &kp LGUI
-                        >;
-                };
-
-                lower_layer {
-// -----------------------------------------------------------------------------------------
-// |   `  |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |  -  |
-// | SHFT |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  [  |  ]  |  =  |
-// | CTRL |     |     |     |     |     |   |     |     |     |     |  \  |     |
-//                    | ALT |     | SPC |   | ENT |     | GUI |
-                        label = "Lower";
-                        bindings = <
-   &kp GRAVE  &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6    &kp N7   &kp N8   &kp N9    &kp N0   &kp MINUS
-   &kp LSHFT  &kp EXCL     &kp AT       &kp HASH     &kp DLLR     &kp PRCNT      &kp CARET &kp AMPS &kp STAR &kp LBKT  &kp RBKT &kp EQUAL
-   &kp LCTRL  &trans       &trans       &trans       &trans       &trans         &trans    &trans   &trans   &trans    &kp BSLH &trans
-                          	        &kp LALT     &trans       &kp SPACE      &kp RET   &trans   &kp LGUI
-                        >;
-                };
-
-                raise_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |     |     |     |     |     |   |     |     | P_D | P_U |     |     |
-// | SHFT |     |     |     |     |     |   |     | LFT | DWN |  UP | RGT |     |
-// | CTRL |     |     |     |     |     |   |     |     |     |     |     |     |
-//                    | ALT |     | SPC |   | ENT |     | GUI |
-                        label = "Raise";
-                        bindings = <
-   &kp  TAB  &kp F1    &kp F2       &kp F3        &kp N4   &kp F5      &kp F6    &kp F7    &kp F8    &kp F9    &kp F10   &kp F11
-   &kp LSHFT &kp HOME  &kp LC(LEFT) &kp LC(RIGHT) &kp END  &trans      &trans    &kp LEFT  &kp DOWN  &kp UP    &kp RIGHT &kp F12
-   &kp LCTRL &trans    &trans       &trans        &trans   &trans      &trans    &trans    &trans    &trans    &trans    &trans
-                    	            &kp LALT      &trans   &kp SPACE   &kp RET   &trans    &kp LGUI
-                        >;
-                };
+            label = "Base";
+            bindings = <
+  &kp TAB  &kp Q  &kp W     &kp E  &kp R      &kp T      &kp Y  &kp U      &kp I    &kp O     &kp P  &kp BSPC
+&kp LSHFT  &kp A  &kp S     &kp D  &kp F      &kp G      &kp H  &kp J      &kp K    &kp L  &kp SEMI   &kp SQT
+&kp LCTRL  &kp Z  &kp X     &kp C  &kp V      &kp B      &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH   &kp ESC
+                         &kp LALT  &mo 1  &kp SPACE    &kp RET  &mo 2   &kp LGUI
+            >;
         };
+
+        lower_layer {
+            // -------------        ----------------------------------------------------------------------------
+            // |   `  |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  |  -  |
+            // | SHFT |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  [  |  ]  |  =  |
+            // | CTRL |     |     |     |     |     |   |     |     |     |     |  \  |     |
+            //                    | ALT |     | SPC |   | ENT |     | GUI |
+
+            label = "Lower";
+            bindings = <
+&kp GRAVE    &kp N1  &kp N2    &kp N3    &kp N4     &kp N5       &kp N6    &kp N7    &kp N8    &kp N9    &kp N0  &kp MINUS
+&kp LSHFT  &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS  &kp STAR  &kp LBKT  &kp RBKT  &kp EQUAL
+&kp LCTRL    &trans  &trans    &trans    &trans     &trans       &trans    &trans    &trans    &trans  &kp BSLH     &trans
+                             &kp LALT    &trans     &trans      &kp DEL     &mo 3  &kp LGUI
+            >;
+        };
+
+        raise_layer {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |     |     |     |     |     |   |     |     | P_D | P_U |     |     |
+            // | SHFT |     |     |     |     |     |   |     | LFT | DWN |  UP | RGT |     |
+            // | CTRL |     |     |     |     |     |   |     |     |     |     |     |     |
+            //                    | ALT |     | SPC |   | ENT |     | GUI |
+
+            label = "Raise";
+            bindings = <
+  &kp TAB    &kp F1        &kp F2         &kp F3   &kp N4     &kp F5     &kp F6    &kp F7    &kp F8  &kp F9    &kp F10  &kp F11
+&kp LSHFT  &kp HOME  &kp LC(LEFT)  &kp LC(RIGHT)  &kp END     &trans     &trans  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &kp F12
+&kp LCTRL    &trans        &trans         &trans   &trans     &trans     &trans    &trans    &trans  &trans     &trans   &trans
+                                        &kp LALT    &mo 3  &kp SPACE    &kp RET    &trans  &kp LGUI
+            >;
+        };
+
+        layer_3 {
+            // -----------------------------------------------------------------------------------------
+            // |  TAB |     |     |     |     |     |   |     |     | P_D | P_U |     |     |
+            // | SHFT |     |     |     |     |     |   |     | LFT | DWN |  UP | RGT |     |
+            // | CTRL |     |     |     |     |     |   |     |     |     |     |     |     |
+            //                    | ALT |     | SPC |   | ENT |     | GUI |
+
+            label = "Adjust";
+            bindings = <
+&bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4    &trans  &trans  &trans  &trans  &trans  &trans
+    &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans
+    &trans        &trans        &trans        &trans        &trans        &trans    &trans  &trans  &trans  &trans  &trans  &trans
+                                              &trans        &trans        &trans    &trans  &trans  &trans
+            >;
+        };
+    };
 };
