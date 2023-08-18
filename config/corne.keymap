@@ -166,7 +166,7 @@
             bindings = <
                   &none       &kp F1        &kp F2       &kp F3          &kp N4   &kp F5       &kp F6  &kp F7         &kp F8          &kp F9          &kp F10 &kp F11 
                   &none       &kp LA(F12)   &kp F12      &kp LA(LC(F12)) &none    &none        &none   &kp F5         &kp LC(LS(B))   &kp LA(LC(F11)) &none   &kp F12 
-                  &LS(F5)     &m_ch         &m_ph        &m_th           &none    &none        &none   &kp LC(LS(F5)) &kp LA(LS(F11)) &kp LS(F11)     &kp F10 &none 
+                  &kp LS(F5)  &m_ch         &m_ph        &m_th           &none    &none        &none   &kp LC(LS(F5)) &kp LA(LS(F11)) &kp LS(F11)     &kp F10 &none 
                                                          &none           &none    &trans       &trans  &none          &none 
             >;
         };
