@@ -22,9 +22,87 @@
 };
 
 
-// Keymap
+// Macros
 // -----------------------------------------------------------------------------------------
 / {
+    macros {
+        m_ch: call_hierarchy {
+            label = "call_hierarchy";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp K &kp T>
+                , <&macro_release &kp LCTRL>;
+        };
+        m_ph: peak_header {
+            label = "peak_header";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp K &kp J>
+                , <&macro_release &kp LCTRL>;
+        };
+        m_th: toggle_header {
+            label = "toggle_header";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp K &kp O>
+                , <&macro_release &kp LCTRL>;
+        };
+        m_pt: pointer {
+            label = "pointer";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &kp MINUS &kp GREATER_THAN>;
+        };
+    };
+};
+
+/ {   
+
+    // Behaviors
+    // -----------------------------------------------------------------------------------------
+    behaviors {
+        td_C: tap_dance_copy {
+            compatible = "zmk,behavior-tap-dance";
+            label = "tap_dance_copy";
+            #binding-cells = <0>;
+            tapping-term-ms = <150>;
+            bindings = <&kp C>, <&kp LC(C)>;
+        };
+        td_V: tap_dance_paste {
+            compatible = "zmk,behavior-tap-dance";
+            label = "tap_dance_paste";
+            #binding-cells = <0>;
+            tapping-term-ms = <150>;
+            bindings = <&kp V>, <&kp LC(V)>;
+        };
+        td_X: tap_dance_cut {
+            compatible = "zmk,behavior-tap-dance";
+            label = "tap_dance_cut";
+            #binding-cells = <0>;
+            tapping-term-ms = <150>;
+            bindings = <&kp X>, <&kp LC(X)>;
+        };
+        td_Z: tap_dance_undo {
+            compatible = "zmk,behavior-tap-dance";
+            label = "tap_dance_undo";
+            #binding-cells = <0>;
+            tapping-term-ms = <150>;
+            bindings = <&kp Z>, <&kp LC(Z)>;
+        };
+        td_A: tap_dance_select_all {
+            compatible = "zmk,behavior-tap-dance";
+            label = "tap_dance_select_all";
+            #binding-cells = <0>;
+            tapping-term-ms = <150>;
+            bindings = <&kp A>, <&kp LC(A)>;
+        };
+    };
+
+    // Keymap
+    // -----------------------------------------------------------------------------------------
     keymap {
         compatible = "zmk,keymap";
 
@@ -39,8 +117,8 @@
             label = "Base";
             bindings = <
                   &kp DEL        &kp Q  &kp W     &kp E         &kp R         &kp T        &kp Y     &kp U    &kp I      &kp O     &kp P      &kp BSPC
-                  &kp TAB        &kp A  &kp S     &kp D         &kp F         &kp G        &kp H     &kp J    &kp K      &kp L     &kp SEMI   &kp SQT
-                  &mt LSHFT ESC  &kp Z  &kp X     &kp C         &kp V         &kp B        &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH   &mt RSHFT RET  
+                  &kp TAB        &td_A  &kp S     &kp D         &kp F         &kp G        &kp H     &kp J    &kp K      &kp L     &kp SEMI   &kp SQT
+                  &mt LSHFT ESC  &td_Z  &td_X     &td_C         &td_V         &kp B        &kp N     &kp M    &kp COMMA  &kp DOT   &kp FSLH   &mt RSHFT RET  
                                                   &mt LCTRL DEL &mt LALT BSPC &lt 1 SPACE  &lt 2 RET &kp LGUI &mo 3
             >;
         };
@@ -70,9 +148,9 @@
 
             label = "Raise";
             bindings = <
-                  &trans    &kp F1     &kp F2        &kp F3         &kp N4  &kp F5        &kp F6    &kp F7    &kp F8   &kp F9  &kp F10   &kp F11
-                  &trans    &kp HOME   &kp LC(LEFT)  &kp LC(RIGHT)  &kp END &trans        &trans    &kp LEFT  &kp DOWN &kp UP  &kp RIGHT &kp F12
-                  &trans    &trans     &trans        &trans         &trans  &trans        &trans    &trans    &trans   &trans  &trans    &trans
+                  &trans    &trans     &trans        &trans         &trans  &trans        &trans    &trans    &kp PG_DN  &kp PG_UP  &trans    &trans
+                  &trans    &kp HOME   &kp LC(LEFT)  &kp LC(RIGHT)  &kp END &trans        &trans    &kp LEFT  &kp DOWN   &kp UP     &kp RIGHT &trans
+                  &trans    &trans     &trans        &trans         &trans  &trans        &trans    &trans    &trans     &m_pt      &trans    &trans
                                                      &trans         &trans  &mo 4         &trans    &trans    &trans
             >;
         };
@@ -86,9 +164,9 @@
 
             label = "Shorts";
             bindings = <
-                  &none       &none         &none        &none           &none    &none        &none   &none          &none           &none           &none   &none 
-                  &none       &kp LA(F12)   &kp F12      &kp LA(LC(F12)) &none    &none        &none   &kp F5         &kp LC(LS(B))   &kp LA(LC(F11)) &none   &none 
-                  &none       &none         &none        &none           &none    &none        &none   &kp LC(LS(F5)) &kp LA(LS(F11)) &kp LS(F11)     &kp F10 &none 
+                  &none       &kp F1        &kp F2       &kp F3          &kp N4   &kp F5       &kp F6  &kp F7         &kp F8          &kp F9          &kp F10 &kp F11 
+                  &none       &kp LA(F12)   &kp F12      &kp LA(LC(F12)) &none    &none        &none   &kp F5         &kp LC(LS(B))   &kp LA(LC(F11)) &none   &kp F12 
+                  &LS(F5)     &m_ch         &m_ph        &m_th           &none    &none        &none   &kp LC(LS(F5)) &kp LA(LS(F11)) &kp LS(F11)     &kp F10 &none 
                                                          &none           &none    &trans       &trans  &none          &none 
             >;
         };
