@@ -18,7 +18,8 @@
             // | TAB  |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
             // | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | SHFT  |
             //                    |CTRL | ALT |SPC/1|   |ENT/2| GUI  | l3  |
-                                    DEL   BSPC  
+            //                      DEL   BSPC  
+
             label = "Base";
             bindings = <
                   &kp DEL        &kp Q  &kp W     &kp E         &kp R         &kp T        &kp Y     &kp U    &kp I      &kp O     &kp P      &kp BSPC
