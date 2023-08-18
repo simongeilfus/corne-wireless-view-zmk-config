@@ -9,6 +9,19 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
+    behaviors {
+        &mt {
+            tapping-term-ms = <150>;
+            quick-tap-ms = <125>;
+        };
+        &lt {
+            tapping-term-ms = <150>;
+            quick-tap-ms = <125>;
+        };
+    };
+};
+
+/ {
     keymap {
         compatible = "zmk,keymap";
 
