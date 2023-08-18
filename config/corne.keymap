@@ -11,12 +11,12 @@
 // Global Config
 // -----------------------------------------------------------------------------------------
 &mt {
-    tapping-term-ms = <150>;
-    quick-tap-ms = <125>;
+    tapping-term-ms = <185>;
+    quick-tap-ms = <150>;
 };
 &lt {
-    tapping-term-ms = <150>;
-    quick-tap-ms = <125>;
+    tapping-term-ms = <185>;
+    quick-tap-ms = <150>;
 };
 
 
