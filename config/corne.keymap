@@ -27,7 +27,7 @@
 / {
     macros {
         m_ch: call_hierarchy {
-            label = "call_hierarchy";
+            display-name = "call_hierarchy";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>
@@ -35,7 +35,7 @@
                 , <&macro_release &kp LCTRL>;
         };
         m_ph: peak_header {
-            label = "peak_header";
+            display-name = "peak_header";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>
@@ -43,7 +43,7 @@
                 , <&macro_release &kp LCTRL>;
         };
         m_th: toggle_header {
-            label = "toggle_header";
+            display-name = "toggle_header";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_press &kp LCTRL>
@@ -51,10 +51,19 @@
                 , <&macro_release &kp LCTRL>;
         };
         m_pt: pointer {
-            label = "pointer";
+            display-name = "pointer";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_tap &kp MINUS &kp GREATER_THAN>;
+        };
+        m_altt: alt_tab {
+            display-name = "alt_tab";
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_press &kp LALT>
+                , <&macro_tap &kp TAB>
+                , <&macro_pause_for_release>
+                , <&macro_release &kp LALT>;
         };
     };
 };
@@ -66,33 +75,53 @@
     behaviors {
         td_C: tap_dance_copy {
             compatible = "zmk,behavior-tap-dance";
-            label = "tap_dance_copy";
+            display-name = "tap_dance_copy";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp C>, <&kp LC(C)>;
         };
         td_V: tap_dance_paste {
             compatible = "zmk,behavior-tap-dance";
-            label = "tap_dance_paste";
+            display-name = "tap_dance_paste";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp V>, <&kp LC(V)>;
         };
         td_X: tap_dance_cut {
             compatible = "zmk,behavior-tap-dance";
-            label = "tap_dance_cut";
+            display-name = "tap_dance_cut";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp X>, <&kp LC(X)>;
         };
         td_Z: tap_dance_undo {
             compatible = "zmk,behavior-tap-dance";
-            label = "tap_dance_undo";
+            display-name = "tap_dance_undo";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp Z>, <&kp LC(Z)>;
         };
+        td_mo1_3: tap_layer1_layer3 {
+            compatible = "zmk,behavior-tap-dance";
+            display-name = "tap_layer1_layer3";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&mo 1>, <&mo 3>;
+        };
+        mht: macro_hold_tap {
+            compatible = "zmk,behavior-hold-tap";
+            display-name = "macro_hold_tap";
+            #binding-cells = <2>;
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <200>;
+            bindings = <&m_altt>, <&kp>;
+            hold-trigger-key-positions = <1>;
+        };
     };
+         
+
+
 
     // Keymap
     // -----------------------------------------------------------------------------------------
@@ -100,22 +129,22 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            label = "Base";
+            display-name = "Base";
             bindings = <
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
-             &mt LALT DEL    &kp Q          &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P        &kp BSPC 
+                &kp DEL      &kp Q          &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P        &kp BSPC 
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
                 &kp TAB      &kp A          &kp S         &kp D         &kp F         &kp G             &kp H         &kp J         &kp K         &kp L        &kp SEMI      &kp SQT 
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
             &mt LSHFT ESC    &kp Z          &kp X         &kp C         &kp V         &kp B            &kp N          &kp M       &kp COMMA       &kp DOT      &kp FSLH   &mt RSHFT RET   
 //         ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯ 
-                                                     &mt LCTRL RET   &lt 3 BSPC    &lt 1 SPACE        &lt 2 RET    &mt LALT DEL    &kp LGUI        
+                                                     &mt LCTRL BSPC  &mt LALT RET  &lt 1 SPACE        &lt 2 RET       &mo 3       &kp LGUI
 //                                                   ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
             >;
         };
 
         lower_layer {
-            label = "Lower";
+            display-name = "Lower";
             bindings = <
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
               &kp GRAVE       &kp N1        &kp N2        &kp N3        &kp N4        &kp N5            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0      &kp MINUS
@@ -130,14 +159,14 @@
         };
 
         raise_layer {
-            label = "Raise";
+            display-name = "Raise";
             bindings = <
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
                 &trans       &trans         &trans        &trans        &trans       &trans            &trans        &trans       &kp PG_DN      &kp PG_UP     &trans       &trans
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
                   &trans     &kp HOME    &kp LC(LEFT) &kp LC(RIGHT)    &kp END       &trans            &trans       &kp LEFT      &kp DOWN        &kp UP      &kp RIGHT     &trans
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
-                &trans       &trans         &trans        &trans        &trans       &trans            &trans        &trans        &trans        &trans        &trans        &trans   
+                &trans       &trans         &trans        &trans        &trans       &trans            &trans        &trans        &trans        &m_pt        &trans        &trans   
 //         ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯ 
                                                           &trans        &trans        &mo 4            &trans        &trans        &trans
 //                                                   ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
@@ -145,7 +174,7 @@
         };
 
         layer_3 {
-            label = "Functions";
+            display-name = "Functions";
             bindings = <
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
                   &none       &kp F1        &kp F2        &kp F3        &kp F4       &kp F5             &kp F6       &kp F7        &kp F8         &kp F9        &kp F10      &kp F11 
@@ -160,16 +189,31 @@
         };
 
         layer_4 {
-            label = "Adjust";
+            display-name = "Adjust";
             bindings = <
 //         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
-               &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4         &none         &none         &none        &none          &none         &none    
+               &bt BT_CLR  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4         &none       &kp C_PREV    &kp C_PAUSE   &kp C_PLAY    &kp C_NEXT      &none    
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
-                &none         &none         &none        &none          &none         &none             &none         &none         &none        &none          &none         &none    
+                &none         &none         &none        &none          &none         &to 5             &none       &kp C_MUTE   &kp C_VOL_DN  &kp C_VOL_UP     &none         &none    
 //         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
-                &none         &none         &none        &none          &none         &none             &none         &none         &none        &none          &none         &none    
+                &none         &none         &none        &none          &none         &none             &none         &none      &kp C_BRI_DN  &kp C_BRI_UP     &none         &none    
 //         ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯ 
                                                          &none          &none        &trans            &trans         &none        &none 
+//                                                   ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+            >;
+        };
+
+        layer_5 {
+            display-name = "Game";
+            bindings = <
+//         ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ 
+                &kp ESC      &trans         &trans        &trans        &trans       &trans            &trans         &trans        &trans        &trans       &trans       &trans   
+//         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
+                &trans       &trans         &trans        &trans        &trans       &trans            &trans         &trans        &trans        &trans       &trans       &trans 
+//         ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ 
+              &kp LSHFT      &trans         &trans        &trans        &trans       &trans             &trans         &trans        &trans        &trans       &trans       &trans   
+//         ╰─────────────┴─────────────┴─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┴─────────────┴─────────────╯ 
+                                                        &kp LCTRL    &td_mo1_3     &kp SPACE          &kp RET         &kp LALT     &to 0        
 //                                                   ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
             >;
         };
